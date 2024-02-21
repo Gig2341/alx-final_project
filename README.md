@@ -58,7 +58,7 @@ To get started with the Eye Clinic Database Management System, follow these step
 2. **Install Dependencies:**
 
     ```sh
-    cd ClinicBase
+    cd alx-final_project
     pip install -r requirements.txt
     ```
 
