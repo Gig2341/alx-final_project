@@ -52,7 +52,7 @@ To get started with the Eye Clinic Database Management System, follow these step
 1. **Clone the Repository:**
 
     ```sh
-    git clone https://github.com/Dtikoli/ClinicBase.git
+    git clone https://github.com/Gig2341/alx-final_project.git
     ```
 
 2. **Install Dependencies:**
