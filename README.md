@@ -134,7 +134,7 @@ The optometrist dashboard, designed for seamless workflow coordination with the 
 
 ### Student-Led Innovation in Eye Healthcare
 
-In the heart of Ghana, our passionate team of three students embarked on an ambitious mission to redefine eye healthcare. Armed with our collective knowledge of software engineering and web application development, we set out to revolutionize clinical management.
+In the heart of Ghana, our passionate team of four students embarked on an ambitious mission to redefine eye healthcare. Armed with our collective knowledge of software engineering and web application development, we set out to revolutionize clinical management.
 
 Through our combined expertise, we crafted a sophisticated Flask-based web application, leveraging RESTful APIs and JavaScript engines. Our understanding of software engineering intricacies allowed us to orchestrate flawless communication between components, ensuring seamless integration.
 
