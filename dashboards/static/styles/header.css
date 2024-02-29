@@ -1,0 +1,39 @@
+/* Custom CSS */
+.navbar-expand-sm {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.navbar-brand {
+    margin-right: 10rem; /* A very large right margin */
+    margin-left: 7rem; /* A very large right margin */
+}
+
+.navbar-nav {
+    flex-grow: 1;
+    justify-content: center; /* Center the header tabs */
+    margin: 0;
+    padding: 0;
+    max-width: 50%; /* Reduce the header width to 50% of the viewport width */
+}
+
+.navbar-nav .nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav .nav-link {
+    padding: 1rem 2rem; /* Adjust the padding as needed */
+}
+
+/* Highlight the active link */
+.navbar-nav .nav-link.active {
+    border-radius: 5px; /* Add rounded corners */
+    font-weight: bold; /* Increase font weight for emphasis */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.bg-turquoise {
+    background-color: #7FFFD4; /* Turquoise Green color */
+}

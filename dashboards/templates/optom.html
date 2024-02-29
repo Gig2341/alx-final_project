@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tab-links.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/Logo.png') }}">
+    <title>ClinicBase - Optometrist</title>
+</head>
+<body>
+    <header>
+        <h1>ClinicBase</h1>
+        <div id="api_status"></div>
+        
+        <nav class="logout">
+            <ul>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <div class="container mt-3 ml-3">
+        <div class="row">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                     {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="employee-bar">
+            <div>
+                <h4 id="optom-info">Optometrist Name: {{ current_user.name }}</h4>
+            </div>
+        </div>
+        <main>
+            <section class="patient-status">
+                <div class="unattended">
+                    <button id="refreshButton">Refresh</button>
+                    <h4>Patients Queue</h4>
+                    <ul id="radio-button-list">
+                        <!-- Patient search will be added dynamically -->
+                    </ul><br>
+                </div>
+            </section>
+            <section class="patient-info">
+                <div class="patient-detail">
+                    <div class="blank-detail">
+                        <div id="responseContainer">
+                             <!-- CRUD Success Message -->
+                        </div>
+                    </div>
+                </div>
+                <div class="patient-history">
+                    <div class="employee-tab">
+                        <button class="tablinks" onclick="openTab(event, 'histories')"
+                            id="defaultOpen">History</button>
+                        <button class="tablinks" onclick="openTab(event,'examinations')">Examination</button>
+                        <button class="tablinks" onclick="openTab(event,'tests')">Tests</button>
+                        <button class="tablinks" onclick="openTab(event,'diagnoses')">Diagnosis</button>
+                        <button class="tablinks" onclick="openTab(event,'drugs')">Medication</button>
+                        <button class="tablinks" onclick="openTab(event,'lenses')">Lens
+                            Prescription</button>
+                    </div>
+                    <div class="nav-content">
+                        <form id="medicalForm">
+                            <div id="histories" class="tabcontent">
+                                <h3>History</h3>
+                                <label for="p_ocular_hx">POHx:</label>
+                                <textarea id="p_ocular_hx" name="p_ocular_hx" ></textarea><br><br>
+                                <label for="p_medical_hx">PMHx:</label>
+                                <textarea id="p_medical_hx" name="p_medical_hx" ></textarea><br><br>
+                                <label for="f_ocular_hx">FOHx:</label>
+                                <textarea id="f_ocular_hx" name="f_ocular_hx" ></textarea><br><br>
+                                <label for="f_medical_hx">FMHx:</label>
+                                <textarea id="f_medical_hx" name="f_medical_hx" ></textarea><br><br>
+                            </div>
+                            <div id="examinations" class="tabcontent">
+                                <h3>Examination</h3>
+                                <label for="visual_acuity">Visual Acuity:</label>
+                                <textarea id="visual_acuity" name="visual_acuity" ></textarea><br><br>
+                                <label for="ocular_exam">Ocular Examination:</label>
+                                <textarea id="ocular_exam" name="ocular_exam" ></textarea><br><br>
+                                <label for="chief_complaint">Chief Complaint:</label>
+                                <textarea id="chief_complaint" name="chief_complaint" ></textarea><br><br>
+                                <label for="on_direct_questions">On Direct Questions:</label>
+                                <textarea id="on_direct_questions" name="on_direct_questions"></textarea><br><br>
+                                <label for="iop">Intraocular Pressure (IOP):</label>
+                                <textarea id="iop" name="iop" ></textarea><br><br>
+                                <label for="blood_pressure">Blood Pressure:</label>
+                                <textarea id="blood_pressure" name="blood_pressure"></textarea><br><br>
+                            </div>
+                            <div id="tests" class="tabcontent">
+                                <h3>Tests</h3>
+                                <label for="retinoscopy">Retinoscopy:</label>
+                                <textarea id="retinoscopy" name="retinoscopy"></textarea><br><br>
+                                <label for="autorefraction">Autorefraction:</label>
+                                <textarea id="autorefraction" name="autorefraction"></textarea><br><br>
+                                <label for="subjective_refraction">Subjective Refraction:</label>
+                                <textarea id="subjective_refraction" name="subjective_refraction"></textarea><br><br>
+                                <label for="other_tests">Other Tests:</label>
+                                <textarea id="other_tests" name="other_tests"></textarea><br><br>
+                            </div>
+                            <div id="diagnoses" class="tabcontent">
+                                <h3>Diagnosis</h3>
+                                <label for="principal_diagnosis">Principal Diagnosis:</label>
+                                <textarea id="principal_diagnosis" name="principal_diagnosis"></textarea><br><br>
+                                <label for="other_diagnosis_1">Other Diagnosis 1:</label>
+                                <textarea id="other_diagnosis_1" name="other_diagnosis_1"></textarea><br><br>
+                                <label for="other_diagnosis_2">Other Diagnosis 2:</label>
+                                <textarea id="other_diagnosis_2" name="other_diagnosis_2"></textarea><br><br>
+                            </div>
+                            <div id="drugs" class="tabcontent">
+                                <h3>Medication</h3>
+                                 <label for="drug">Prescribed Medication:</label>
+                                 <textarea id="drug" name="drug" ></textarea>
+                            </div>
+                            <div id="lenses" class="tabcontent">
+                                <h3>Lens Prescription</h3>
+                                <label for="lens_rx">Lens Prescription:</label>
+                                <textarea id="lens_rx" name="lens_rx" ></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section class="save-patient">
+		<button id="newCaseButton">+New Case || Retrieve Case</button><br><br>
+		<button id="saveCaseButton">Save</button><br><br>
+		<button id="submitCaseButton">Submit</button><br><br>
+                <button id="patientRecordButton">View Previous Cases</button><br>
+                <div id="medicalRecordsContainer">
+                    <!-- Patient medical records will be added dynamically -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> ClinicBase</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/optom.js') }}"></script>
+</body>
+</html>
